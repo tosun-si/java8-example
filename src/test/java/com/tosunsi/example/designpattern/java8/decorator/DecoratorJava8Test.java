@@ -18,8 +18,8 @@ public class DecoratorJava8Test {
     final double grossSalary = 30000;
 
     // Chains all decorators.
-    final double netSalary = new DefaultSalaryCalculator().andThen(Taxes::getHealthInsuranceTaxe)
-        .andThen(Taxes::getNationalTaxe).andThen(Taxes::getRegionalTaxe).applyAsDouble(grossSalary);
+    final double netSalary = new DefaultSalaryCalculator().andThen(Taxes::getHealthInsuranceTax)
+        .andThen(Taxes::getNationalTax).andThen(Taxes::getRegionalTax).applyAsDouble(grossSalary);
 
     // Asserts.
     assertThat(netSalary).isNotNull().isEqualTo(1550);
@@ -32,8 +32,8 @@ public class DecoratorJava8Test {
     final double grossSalary = 30000;
 
     // Chains all decorators.
-    final double netSalary = new DefaultSalaryCalculator().andThen(Taxes::getHealthInsuranceTaxe)
-        .andThen(Taxes::getNationalTaxe).applyAsDouble(grossSalary);
+    final double netSalary = new DefaultSalaryCalculator().andThen(Taxes::getHealthInsuranceTax)
+        .andThen(Taxes::getNationalTax).applyAsDouble(grossSalary);
 
     // Asserts.
     assertThat(netSalary).isNotNull().isEqualTo(1650);
@@ -48,7 +48,7 @@ public class DecoratorJava8Test {
     // Chains all decorators.
     final double netSalary =
         StreamDecorator.INSTANCE.calculateSalary(grossSalary, new DefaultSalaryCalculator(),
-            Taxes::getHealthInsuranceTaxe, Taxes::getNationalTaxe, Taxes::getRegionalTaxe);
+            Taxes::getHealthInsuranceTax, Taxes::getNationalTax, Taxes::getRegionalTax);
 
     // Asserts.
     assertThat(netSalary).isNotNull().isEqualTo(1550);
@@ -62,7 +62,7 @@ public class DecoratorJava8Test {
 
     // Chains all decorators.
     final double netSalary = StreamDecorator.INSTANCE.calculateSalary(grossSalary,
-        new DefaultSalaryCalculator(), Taxes::getHealthInsuranceTaxe, Taxes::getNationalTaxe);
+        new DefaultSalaryCalculator(), Taxes::getHealthInsuranceTax, Taxes::getNationalTax);
 
     // Asserts.
     assertThat(netSalary).isNotNull().isEqualTo(1650);

@@ -5,14 +5,14 @@ import com.tosunsi.example.designpattern.java8.decorator.Taxes;
 /**
  * Created by Mazlum on 18/08/2016.
  */
-public class RegionalTaxeDecorator extends AbstractTaxDecorator {
+public class RegionalTaxDecorator extends AbstractTaxDecorator {
 
-  public RegionalTaxeDecorator(SalaryCalculator salaryCalculator) {
+  public RegionalTaxDecorator(SalaryCalculator salaryCalculator) {
     super(salaryCalculator);
   }
 
   @Override
   protected double applyTax(double salary) {
-    return Taxes.getRegionalTaxe(salary);
+    return Taxes.getRegionalTax(salary);
   }
 }

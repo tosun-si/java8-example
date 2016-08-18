@@ -9,6 +9,6 @@ public class DefaultSalaryCalculator implements SalaryCalculator {
 
   @Override
   public double calculate(double grossAnnual) {
-    return Taxes.getDefaultTaxe(grossAnnual);
+    return Taxes.getDefaultTax(grossAnnual);
   }
 }

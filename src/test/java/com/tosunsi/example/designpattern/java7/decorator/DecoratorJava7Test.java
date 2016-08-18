@@ -19,7 +19,7 @@ public class DecoratorJava7Test {
 
     // Chains all decorators.
     final double netSalary = new HealthInsuranceTaxeDecorator(
-        new RegionalTaxeDecorator(new NationalTaxeDecorator(new DefaultSalaryCalculator())))
+        new RegionalTaxDecorator(new NationalTaxDecorator(new DefaultSalaryCalculator())))
             .calculate(grossSalary);
 
     // Asserts.
@@ -35,7 +35,7 @@ public class DecoratorJava7Test {
     // Chains all decorators.
     // Chains all decorators.
     final double netSalary =
-        new HealthInsuranceTaxeDecorator(new NationalTaxeDecorator(new DefaultSalaryCalculator()))
+        new HealthInsuranceTaxeDecorator(new NationalTaxDecorator(new DefaultSalaryCalculator()))
             .calculate(grossSalary);
 
     // Asserts.

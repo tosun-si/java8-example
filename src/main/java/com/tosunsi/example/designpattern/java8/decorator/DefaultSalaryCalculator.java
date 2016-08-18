@@ -11,6 +11,6 @@ import java.util.function.DoubleUnaryOperator;
 
   @Override
   public double applyAsDouble(double operand) {
-    return Taxes.getDefaultTaxe(operand);
+    return Taxes.getDefaultTax(operand);
   }
 }

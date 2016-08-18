@@ -7,19 +7,19 @@ package com.tosunsi.example.designpattern.java8.decorator;
  */
 public class Taxes {
 
-  public static double getDefaultTaxe(final double salary) {
+  public static double getDefaultTax(final double salary) {
     return salary / 12;
   }
 
-  public static double getHealthInsuranceTaxe(final double salary) {
+  public static double getHealthInsuranceTax(final double salary) {
     return salary - 550;
   }
 
-  public static double getNationalTaxe(final double salary) {
+  public static double getNationalTax(final double salary) {
     return salary - 300;
   }
 
-  public static double getRegionalTaxe(final double salary) {
+  public static double getRegionalTax(final double salary) {
     return salary - 100;
   }
 }

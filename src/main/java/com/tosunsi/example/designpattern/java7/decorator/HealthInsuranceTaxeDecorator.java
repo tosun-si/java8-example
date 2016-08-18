@@ -13,6 +13,6 @@ public class HealthInsuranceTaxeDecorator extends AbstractTaxDecorator {
 
   @Override
   protected double applyTax(double salary) {
-    return Taxes.getHealthInsuranceTaxe(salary);
+    return Taxes.getHealthInsuranceTax(salary);
   }
 }
