@@ -1,4 +1,4 @@
-package com.tosunsi.example.optional;
+package com.tosunsi.example.pojo;
 
 import java.util.Optional;
 
