@@ -1,0 +1,15 @@
+com\tosunsi\example\designpattern\java8\decorator\DefaultSalaryCalculator.class
+com\tosunsi\example\designpattern\java7\decorator\NationalTaxDecorator.class
+com\tosunsi\example\designpattern\java7\decorator\DefaultSalaryCalculator.class
+com\tosunsi\example\designpattern\java8\decorator\Taxes.class
+com\tosunsi\example\designpattern\java7\decorator\HealthInsuranceTaxeDecorator.class
+com\tosunsi\example\fluentiterable\FluentIterable.class
+com\tosunsi\example\pojo\Airbag.class
+com\tosunsi\example\functionalinterface\Operation.class
+com\tosunsi\example\designpattern\java7\decorator\RegionalTaxDecorator.class
+com\tosunsi\example\designpattern\java7\decorator\SalaryCalculator.class
+com\tosunsi\example\pojo\Person.class
+com\tosunsi\example\designpattern\java7\decorator\AbstractTaxDecorator.class
+com\tosunsi\example\pojo\PersonHelper.class
+com\tosunsi\example\designpattern\java8\decorator\StreamDecorator.class
+com\tosunsi\example\pojo\Car.class

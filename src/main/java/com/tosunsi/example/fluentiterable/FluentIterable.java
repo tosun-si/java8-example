@@ -18,7 +18,7 @@ public final class FluentIterable<T> {
    * @param list list
    */
   private FluentIterable(List<T> list) {
-    this.list = new ArrayList<>();
+    this.list = list;
   }
 
   /**
@@ -33,17 +33,17 @@ public final class FluentIterable<T> {
   }
 
   /**
-   * Allows to filter a list by the given predicate.
+   * Allows to filter a list by the given filter.
    * 
-   * @param predicate predicate
+   * @param filter filter
    * @return FluentIterable
    */
-  public FluentIterable<T> filter(final Predicate<T> predicate) {
+  public FluentIterable<T> filter(final Predicate<T> filter) {
 
     final List<T> filteredList = new ArrayList<>();
     this.list.forEach(t -> {
-      if (predicate.test(t)) {
-        list.add(t);
+      if (filter.test(t)) {
+        filteredList.add(t);
       }
     });
 
@@ -53,15 +53,15 @@ public final class FluentIterable<T> {
   /**
    * Allows to transform a list of objects to another list.
    * 
-   * @param function current function
+   * @param mapper current function
    * @param <R> type of transformed list
    * @return FluentIterable
    */
-  public <R> FluentIterable<R> map(final Function<T, R> function) {
+  public <R> FluentIterable<R> map(final Function<T, R> mapper) {
 
     final List<R> transformedList = new ArrayList<>();
     this.list.forEach(t -> {
-      transformedList.add(function.apply(t));
+      transformedList.add(mapper.apply(t));
     });
 
     return from(transformedList);
