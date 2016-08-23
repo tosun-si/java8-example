@@ -1,7 +1,7 @@
 /.project
 .idea/
 *.iml
-*/target/
+*/target/*
 .checkstyle
 .idea/
 /.idea/
