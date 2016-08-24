@@ -7,7 +7,6 @@ import java.util.function.IntPredicate;
 
 import org.junit.Test;
 
-import com.tosunsi.example.designpattern.java8.Validator;
 import com.tosunsi.example.pojo.Person;
 
 /**

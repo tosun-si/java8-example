@@ -1,4 +1,4 @@
-package com.tosunsi.example.designpattern.java8;
+package com.tosunsi.example.designpattern.java8.validator;
 
 import java.util.ArrayList;
 import java.util.List;
