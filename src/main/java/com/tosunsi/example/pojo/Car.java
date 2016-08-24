@@ -7,7 +7,7 @@ import java.util.Optional;
  * 
  * Created by Mazlum on 02/08/2016.
  */
-public class Car {
+public class Car implements Vehicle {
 
   // Field.
 

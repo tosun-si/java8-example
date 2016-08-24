@@ -13,14 +13,16 @@ public class Person {
 
   private String firstName;
   private String lastName;
+  private String civility;
   private Integer age;
   private Car car;
 
   public Person() {}
 
-  public Person(String firstName, String lastName, final Integer age) {
+  public Person(String firstName, String lastName, final String civility, final Integer age) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.civility = civility;
     this.age = age;
   }
 
@@ -40,6 +42,14 @@ public class Person {
 
   public void setLastName(String lastName) {
     this.lastName = lastName;
+  }
+
+  public String getCivility() {
+    return civility;
+  }
+
+  public void setCivility(String civility) {
+    this.civility = civility;
   }
 
   public Integer getAge() {
