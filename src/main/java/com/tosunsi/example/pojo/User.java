@@ -1,5 +1,7 @@
 package com.tosunsi.example.pojo;
 
+import com.google.common.base.MoreObjects;
+
 /**
  * Test class in order to create a pojo for user.
  * 
@@ -39,5 +41,11 @@ public class User {
 
   public void setAge(Integer age) {
     this.age = age;
+  }
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this).add("firstName", firstName).add("lastName", lastName)
+        .add("age", age).toString();
   }
 }

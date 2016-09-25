@@ -2,6 +2,8 @@ package com.tosunsi.example.pojo;
 
 import java.util.Optional;
 
+import com.google.common.base.MoreObjects;
+
 /**
  * Test class in order to create a pojo for person.
  * 
@@ -66,5 +68,12 @@ public class Person {
 
   public void setCar(Car car) {
     this.car = car;
+  }
+
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this).add("firstName", firstName).add("lastName", lastName)
+        .add("civility", civility).add("age", age).add("car", car).toString();
   }
 }

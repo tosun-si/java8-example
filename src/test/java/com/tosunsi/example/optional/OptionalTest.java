@@ -1,14 +1,14 @@
 package com.tosunsi.example.optional;
 
-import com.tosunsi.example.pojo.Airbag;
-import com.tosunsi.example.pojo.Car;
-import com.tosunsi.example.pojo.Person;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Optional;
 
 import org.junit.Test;
+
+import com.tosunsi.example.pojo.Airbag;
+import com.tosunsi.example.pojo.Car;
+import com.tosunsi.example.pojo.Person;
 
 /**
  * Allows to test Optionals.

@@ -19,6 +19,7 @@ public enum PersonHelper {
     final Person person4 = new Person("Roronoa", "Zorro", "MR", 19);
     final Person person5 = new Person("Jenifer", "Lopez", "MME", 40);
 
-    return new ImmutableList.Builder<Person>().add(person1, person2, person3, person4).build();
+    return new ImmutableList.Builder<Person>().add(person1, person2, person3, person4, person5)
+        .build();
   }
 }

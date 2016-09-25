@@ -10,7 +10,7 @@ import java.util.function.Predicate;
  */
 public class Action<T> {
 
-  public Action(T t) {
+  private Action(T t) {
     this.t = t;
   }
 
@@ -22,12 +22,13 @@ public class Action<T> {
   }
 
   public Action<T> add(final Predicate<T> filter, final Consumer<T> consumer) {
+
     map.put(filter.test(t), consumer::accept);
 
     return this;
   }
 
   public void execute() {
-    map.get(true).accept(t);
+    map.getOrDefault(true, t -> System.out.println("No action has been found")).accept(t);
   }
 }

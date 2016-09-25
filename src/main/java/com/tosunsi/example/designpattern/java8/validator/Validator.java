@@ -10,35 +10,35 @@ import java.util.function.Predicate;
  */
 public class Validator<T> {
 
-    private T t;
-    private List<Throwable> exceptions = new ArrayList<>();
+  private T t;
+  private List<Throwable> exceptions = new ArrayList<>();
 
-    private Validator(T t) {
-        this.t = t;
+  private Validator(T t) {
+    this.t = t;
+  }
+
+  public static <T> Validator<T> of(final T t) {
+    return new Validator<T>(t);
+  }
+
+  public <U> Validator<T> validate(final Function<T, U> projection, final Predicate<U> filter,
+      final String message) {
+
+    if (!filter.test(projection.apply(t))) {
+      this.exceptions.add(new IllegalStateException(message));
     }
 
-    public static <T> Validator<T> of(final T t) {
-        return new Validator<T>(t);
-    }
+    // final Predicate<T> function = projection.andThen(u -> filter.test(u))::apply;
 
-    public <U> Validator<T> validate(final Function<T, U> projection, final Predicate<U> filter,
-                                     final String message) {
+    return this;
+  }
 
-        if (!filter.test(projection.apply(t))) {
-            this.exceptions.add(new IllegalStateException(message));
-        }
-
-        // final Predicate<T> function = projection.andThen(u -> filter.test(u))::apply;
-
-        return this;
-    }
-
-    /**
-     * Gets exceptions, if it exists validation errors.
-     *
-     * @return {@link Throwable} exception if it exists validation errors
-     */
-    public List<Throwable> get() {
-        return exceptions;
-    }
+  /**
+   * Gets exceptions, if it exists validation errors.
+   *
+   * @return {@link Throwable} exception if it exists validation errors
+   */
+  public List<Throwable> get() {
+    return exceptions;
+  }
 }
