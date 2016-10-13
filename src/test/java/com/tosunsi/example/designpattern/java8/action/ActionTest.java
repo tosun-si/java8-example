@@ -1,8 +1,7 @@
-package com.tosunsi.example.designpattern.java8.Action;
+package com.tosunsi.example.designpattern.java8.action;
 
 import org.junit.Test;
 
-import com.tosunsi.example.designpattern.java8.action.Action;
 import com.tosunsi.example.pojo.Person;
 
 /**

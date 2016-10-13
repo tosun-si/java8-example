@@ -2,6 +2,8 @@ package com.tosunsi.example.designpattern.java8.decorator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.function.DoubleUnaryOperator;
+
 import org.junit.Test;
 
 /**
@@ -52,6 +54,10 @@ public class DecoratorJava8Test {
 
     // Asserts.
     assertThat(netSalary).isNotNull().isEqualTo(1550);
+  }
+
+  private DoubleUnaryOperator getOperation() {
+    return Taxes::getDefaultTax;
   }
 
   @Test
