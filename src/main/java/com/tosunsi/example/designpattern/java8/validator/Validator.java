@@ -45,8 +45,8 @@ public class Validator<T> {
    *        false
    * @return current {@link Validator}
    */
-  public <U> Validator<T> validate(final Function<T, U> projection, final Predicate<U> filter,
-      final String message) {
+  public <U> Validator<T> validate(Function<? super T, ? extends U> projection,
+      Predicate<? super U> filter, final String message) {
 
     if (!filter.test(projection.apply(t))) {
       this.exceptions.add(new IllegalStateException(message));

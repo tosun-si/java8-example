@@ -1,10 +1,9 @@
-package com.tosunsi.example.designpattern.java8.Visitor;
+package com.tosunsi.example.designpattern.java8.visitor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-import com.tosunsi.example.designpattern.java8.visitor.Visitor;
 import com.tosunsi.example.pojo.Car;
 import com.tosunsi.example.pojo.Moto;
 

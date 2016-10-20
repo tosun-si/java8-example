@@ -1,4 +1,4 @@
-package com.tosunsi.example.designpattern.java8.Stream;
+package com.tosunsi.example.designpattern.java8.stream;
 
 import static java.util.stream.Collectors.groupingBy;
 
@@ -31,17 +31,17 @@ public class StreamTest {
     // Filter.
     final List<Person> filteredPersons =
         persons.stream().filter(p -> p.getAge() < 20).collect(Collectors.toList());
-    System.out.println("Stream filter : " + filteredPersons);
+    System.out.println("stream filter : " + filteredPersons);
 
     // Filter + map.
     final List<User> transformedList = persons.stream().filter(p -> p.getAge() < 20)
         .map(this::toUser).collect(Collectors.toList());
-    System.out.println("Stream transform : " + transformedList);
+    System.out.println("stream transform : " + transformedList);
 
     // Filter + map + reduce.
     final int maxWithReduce = persons.stream().filter(p -> p.getAge() > 20).map(this::toUser)
         .map(User::getAge).reduce(0, (u1, u2) -> u1 + u2);
-    System.out.println("Stream max age with map filter reduce : " + maxWithReduce);
+    System.out.println("stream max age with map filter reduce : " + maxWithReduce);
 
     // Filter + map + max.
     persons.stream().filter(p -> p.getAge() > 20).map(this::toUser)
@@ -55,34 +55,34 @@ public class StreamTest {
     // Map from list : persons grouped by age.
     final Map<Integer, List<Person>> personsByAge =
         persons.stream().collect(groupingBy(Person::getAge));
-    System.out.println("Stream grouped list with collector " + personsByAge);
+    System.out.println("stream grouped list with collector " + personsByAge);
 
     // Map of map from list, via downstream collector.
     final Map<String, Map<Integer, List<Person>>> personsByAgeAndCivility =
         persons.stream().collect(groupingBy(Person::getCivility, groupingBy(Person::getAge)));
     System.out.println(
-        "Stream grouped list with 2 levels and downstream collector " + personsByAgeAndCivility);
+        "stream grouped list with 2 levels and downstream collector " + personsByAgeAndCivility);
 
     // Partition by civility.
     final Map<Boolean, List<Person>> personsPartionnedByCivility =
         persons.stream().collect(Collectors.partitioningBy(p -> "MR".equals(p.getCivility())));
-    System.out.println("Stream partition by : " + personsPartionnedByCivility);
+    System.out.println("stream partition by : " + personsPartionnedByCivility);
 
     // Joining.reduce
     final String personsLastnameStrings =
         persons.stream().map(Person::getFirstName).collect(Collectors.joining(","));
-    System.out.println("Stream list to string with separator : " + personsLastnameStrings);
+    System.out.println("stream list to string with separator : " + personsLastnameStrings);
 
     // Transform map to list.
     final Map<String, Person> personsToName = persons.parallelStream()
         .collect(Collectors.toMap(Person::getLastName, Function.identity()));
-    System.out.println("Stream list to map : " + personsToName);
+    System.out.println("stream list to map : " + personsToName);
 
     // Sort.
     final List<Person> sortedList = persons.stream()
         .sorted(Comparator.comparing(Person::getFirstName).reversed().thenComparing(Person::getAge))
         .collect(Collectors.toList());
-    System.out.println("Stream sorted list : " + sortedList);
+    System.out.println("stream sorted list : " + sortedList);
   }
 
   private User toUser(final Person person) {

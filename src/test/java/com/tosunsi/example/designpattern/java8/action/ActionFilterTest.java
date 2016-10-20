@@ -9,7 +9,7 @@ import com.tosunsi.example.pojo.Person;
  *
  * Created by Mazlum on 03/08/2016.
  */
-public class ActionTest {
+public class ActionFilterTest {
 
   @Test
   public void testAction() {
@@ -17,7 +17,7 @@ public class ActionTest {
     // Test data.
     final Person person1 = new Person("Zlatan", "Ibra", "MR", 10);
 
-    Action.of(person1).add(p -> "Zlatan".equals(p.getFirstName()), this::displayAction1)
+    ActionFilter.of(person1).add(p -> "Zlatan".equals(p.getFirstName()), this::displayAction1)
         .add(p -> "TOTO".equals(p.getFirstName()), this::displayAction2)
         .add(p -> "LOLO".equals(p.getFirstName()), this::displayAction3).execute();
 
