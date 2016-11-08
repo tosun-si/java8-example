@@ -26,8 +26,13 @@ public class ValidatorTest {
         .validate(Person::getAge, a -> a != null, "The age should not be empty")
         .validate(Person::getFirstName, f -> f != null, "First name should not be empty").get();
 
+    final List<Throwable> result2 = LazyValidator.of(person1)
+        .validate(Person::getAge, a -> a != null, "The age should not be empty")
+        .validate(Person::getFirstName, f -> f != null, "First name should not be empty").get();
+
     // Asserts.
     assertThat(result).isEmpty();
+    assertThat(result2).isEmpty();
   }
 
   @Test
@@ -40,8 +45,13 @@ public class ValidatorTest {
         .validate(Person::getAge, a -> a > 10, "The age should be greater than 10")
         .validate(Person::getFirstName, f -> f != null, "First name must not be empty").get();
 
+    final List<Throwable> result2 = LazyValidator.of(person1)
+        .validate(Person::getAge, a -> a > 10, "The age should be greater than 10")
+        .validate(Person::getFirstName, f -> f != null, "First name must not be empty").get();
+
     // Asserts.
     assertThat(result).isNotEmpty().hasSize(1);
+    assertThat(result2).isNotEmpty().hasSize(1);
   }
 
   @Test
@@ -54,8 +64,13 @@ public class ValidatorTest {
         .validate(Person::getAge, inBetween(5, 15)::test, "The age should be greater than 10")
         .validate(Person::getFirstName, f -> f != null, "First name must not be empty").get();
 
+    final List<Throwable> result2 = LazyValidator.of(person1)
+        .validate(Person::getAge, inBetween(5, 15)::test, "The age should be greater than 10")
+        .validate(Person::getFirstName, f -> f != null, "First name must not be empty").get();
+
     // Asserts.
     assertThat(result).isEmpty();
+    assertThat(result2).isEmpty();
   }
 
   private static IntPredicate inBetween(int start, int end) {
