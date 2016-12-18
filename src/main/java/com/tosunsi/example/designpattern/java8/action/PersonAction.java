@@ -58,7 +58,8 @@ public class PersonAction {
    * @param direction direction
    */
   public void execute(final Direction direction) {
-    actions.getOrDefault(direction,
-        p -> System.out.println("Unknown action for direction : " + direction)).accept(person);
+    actions.getOrDefault(direction, p -> {
+      throw new IllegalArgumentException("Unknown action for direction : " + direction);
+    }).accept(person);
   }
 }

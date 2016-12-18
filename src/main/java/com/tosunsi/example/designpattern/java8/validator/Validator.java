@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 /**
  * Monad that allows to compose and chain operation in order to validate many field of the given
  * object {@code <T>}.
- * 
+ *
  * Created by Mazlum on 25/08/2016.
  */
 public class Validator<T> {
