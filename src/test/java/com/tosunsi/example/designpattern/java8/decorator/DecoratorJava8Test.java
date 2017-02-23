@@ -73,4 +73,18 @@ public class DecoratorJava8Test {
     // Asserts.
     assertThat(netSalary).isNotNull().isEqualTo(1650);
   }
+
+  @Test
+  public void testFluentDecoratorWithoutRegionalTaxElements() {
+
+    // Test data.
+    final double grossSalary = 30000;
+
+    // Chains all decorators.
+    final double netSalary = FluentDecorator.from(grossSalary).with(Taxes::getDefaultTax)
+        .with(Taxes::getHealthInsuranceTax).with(Taxes::getNationalTax).calculate();
+
+    // Asserts.
+    assertThat(netSalary).isNotNull().isEqualTo(1650);
+  }
 }
