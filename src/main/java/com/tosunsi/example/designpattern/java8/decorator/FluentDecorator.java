@@ -27,9 +27,4 @@ public final class FluentDecorator<T> {
   public T calculate() {
     return this.function.apply(value);
   }
-
-  public static void main(String[] args) {
-    FluentDecorator.from(20.3).with(Taxes::getDefaultTax).with(Taxes::getHealthInsuranceTax)
-        .with(Taxes::getNationalTax).with(Taxes::getRegionalTax).calculate();
-  }
 }

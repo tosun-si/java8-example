@@ -55,6 +55,23 @@ public final class ArgumentChecker<T> {
     throw exception;
   }
 
+  public void execute(final Class<? extends RuntimeException> exceptionClass) {
+
+    // If there is no error, we return current object.
+    if (exceptions.isEmpty()) {
+      return;
+    }
+
+    try {
+      final RuntimeException exception = exceptionClass.newInstance();
+      // Otherwise an exception is thrown with all error message.
+      exceptions.forEach(exception::addSuppressed);
+      throw exception;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   public static void main(String[] args) {
 
     // final Person person = PersonHelper.INSTANCE.getPersons().get(0);
@@ -75,7 +92,7 @@ public final class ArgumentChecker<T> {
         .thenOn(user)
         .check(User::getLastName, Objects::nonNull, "User first name should not be null")
         .thenOn(airbag).check(Airbag::getBrand, Objects::nonNull, "Airbag brand should not be null")
-        .get();
+        .execute(IllegalArgumentException.class);
 
   }
 }

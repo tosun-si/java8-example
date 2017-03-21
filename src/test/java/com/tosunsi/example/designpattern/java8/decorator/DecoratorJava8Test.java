@@ -2,8 +2,6 @@ package com.tosunsi.example.designpattern.java8.decorator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.function.DoubleUnaryOperator;
-
 import org.junit.Test;
 
 /**
@@ -14,77 +12,92 @@ import org.junit.Test;
 public class DecoratorJava8Test {
 
   @Test
-  public void testDecoratorWithAllElements() {
+  public void givenTurnover_whenComposingAllDecoratorsWithAndThen_thenCorrectResult() {
 
-    // Test data.
-    final double grossSalary = 30000;
+    // Given.
+    final double turnover = 100000;
 
-    // Chains all decorators.
-    final double netSalary = new DefaultSalaryCalculator().andThen(Taxes::getHealthInsuranceTax)
-        .andThen(Taxes::getNationalTax).andThen(Taxes::getRegionalTax).applyAsDouble(grossSalary);
+    // When.
+    final double profit = new DefaultProfitCalculator().andThen(Expenses::getOperatingExpenses)
+        .andThen(Expenses::getDeductibleTaxes).andThen(Expenses::getRemuneration)
+        .andThen(Expenses::getExceptionalExpenses).applyAsDouble(turnover);
 
-    // Asserts.
-    assertThat(netSalary).isNotNull().isEqualTo(1550);
+    // Then.
+    assertThat(profit).isNotNull().isEqualTo(32600);
   }
 
   @Test
-  public void testDecoratorWithoutRegionalTaxe() {
+  public void givenTurnover_whenNoComposingAllDecoratorsWithAndThen_thenCorrectResult() {
 
-    // Test data.
-    final double grossSalary = 30000;
+    // Given.
+    final double turnover = 100000;
 
-    // Chains all decorators.
-    final double netSalary = new DefaultSalaryCalculator().andThen(Taxes::getHealthInsuranceTax)
-        .andThen(Taxes::getNationalTax).applyAsDouble(grossSalary);
+    // When.
+    final double profit = new DefaultProfitCalculator().andThen(Expenses::getOperatingExpenses)
+        .andThen(Expenses::getDeductibleTaxes).andThen(Expenses::getRemuneration)
+        .applyAsDouble(turnover);
 
-    // Asserts.
-    assertThat(netSalary).isNotNull().isEqualTo(1650);
+    // Then.
+    assertThat(profit).isNotNull().isEqualTo(34600);
   }
 
   @Test
-  public void testStreamDecoratorWithAllElements() {
+  public void givenTurnover_whenComposingAllDecoratorsWithStream_thenCorrectResult() {
 
-    // Test data.
-    final double grossSalary = 30000;
+    // Given.
+    final double turnover = 100000;
 
-    // Chains all decorators.
-    final double netSalary =
-        StreamDecorator.INSTANCE.calculateSalary(grossSalary, new DefaultSalaryCalculator(),
-            Taxes::getHealthInsuranceTax, Taxes::getNationalTax, Taxes::getRegionalTax);
+    // When.
+    final double profit = StreamDecorator.INSTANCE.calculateProfit(turnover,
+        new DefaultProfitCalculator(), Expenses::getOperatingExpenses, Expenses::getDeductibleTaxes,
+        Expenses::getRemuneration, Expenses::getExceptionalExpenses);
 
-    // Asserts.
-    assertThat(netSalary).isNotNull().isEqualTo(1550);
-  }
-
-  private DoubleUnaryOperator getOperation() {
-    return Taxes::getDefaultTax;
+    // Then.
+    assertThat(profit).isNotNull().isEqualTo(32600);
   }
 
   @Test
-  public void testStreamDecoratorWithoutRegionalTaxElements() {
+  public void givenTurnover_whenNoComposingAllDecoratorsWithStream_thenCorrectResult() {
 
-    // Test data.
-    final double grossSalary = 30000;
+    // Given.
+    final double turnover = 100000;
 
-    // Chains all decorators.
-    final double netSalary = StreamDecorator.INSTANCE.calculateSalary(grossSalary,
-        new DefaultSalaryCalculator(), Taxes::getHealthInsuranceTax, Taxes::getNationalTax);
+    // When.
+    final double profit = StreamDecorator.INSTANCE.calculateProfit(turnover,
+        new DefaultProfitCalculator(), Expenses::getOperatingExpenses, Expenses::getDeductibleTaxes,
+        Expenses::getRemuneration);
 
-    // Asserts.
-    assertThat(netSalary).isNotNull().isEqualTo(1650);
+    // Then.
+    assertThat(profit).isNotNull().isEqualTo(34600);
   }
 
   @Test
-  public void testFluentDecoratorWithoutRegionalTaxElements() {
+  public void givenTurnover_whenComposingAllDecoratorsWithFluentStyle_thenCorrectResult() {
 
-    // Test data.
-    final double grossSalary = 30000;
+    // Given.
+    final double turnover = 100000;
 
-    // Chains all decorators.
-    final double netSalary = FluentDecorator.from(grossSalary).with(Taxes::getDefaultTax)
-        .with(Taxes::getHealthInsuranceTax).with(Taxes::getNationalTax).calculate();
+    // When.
+    final double profit = FluentDecorator.from(turnover).with(Expenses::getTransportExpenses)
+        .with(Expenses::getOperatingExpenses).with(Expenses::getDeductibleTaxes)
+        .with(Expenses::getRemuneration).with(Expenses::getExceptionalExpenses).calculate();
 
-    // Asserts.
-    assertThat(netSalary).isNotNull().isEqualTo(1650);
+    // Then.
+    assertThat(profit).isNotNull().isEqualTo(32600);
+  }
+
+  @Test
+  public void givenTurnover_whenNoComposingAllDecoratorsWithFluentStyle_thenCorrectResult() {
+
+    // Given.
+    final double turnover = 100000;
+
+    // When.
+    final double profit = FluentDecorator.from(turnover).with(Expenses::getTransportExpenses)
+        .with(Expenses::getOperatingExpenses).with(Expenses::getDeductibleTaxes)
+        .with(Expenses::getRemuneration).calculate();
+
+    // Then.
+    assertThat(profit).isNotNull().isEqualTo(34600);
   }
 }

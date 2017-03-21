@@ -11,8 +11,8 @@ public enum StreamDecorator {
   // Single instance.
   INSTANCE;
 
-  public double calculateSalary(final double grossSalary, final DoubleUnaryOperator... operators) {
+  public double calculateProfit(final double turnover, final DoubleUnaryOperator... operators) {
     return Stream.of(operators).reduce(DoubleUnaryOperator.identity(), DoubleUnaryOperator::andThen)
-        .applyAsDouble(grossSalary);
+        .applyAsDouble(turnover);
   }
 }

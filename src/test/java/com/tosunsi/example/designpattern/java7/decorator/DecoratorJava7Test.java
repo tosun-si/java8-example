@@ -5,40 +5,39 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
 /**
- * Allows to test revisited GOF decorator pattern with lambda.
+ * Allows to test GOF decorator pattern.
  * 
  * Created by Mazlum on 03/08/2016.
  */
 public class DecoratorJava7Test {
 
   @Test
-  public void testDecoratorWithAllElements() {
+  public void givenTurnover_whenComposingAllDecorators_thenCorrectResult() {
 
-    // Test data.
-    final double grossSalary = 30000;
+    // Given.
+    final double turnover = 100000;
 
-    // Chains all decorators.
-    final double netSalary = new HealthInsuranceTaxeDecorator(
-        new RegionalTaxDecorator(new NationalTaxDecorator(new DefaultSalaryCalculator())))
-            .calculate(grossSalary);
+    // When.
+    final double profit =
+        new ExceptionalExpensesDecorator(new RemunerationDecorator(new DeductibleTaxesDecorator(
+            new OperatingExpensesDecorator(new DefaultProfitCalculator())))).calculate(turnover);
 
-    // Asserts.
-    assertThat(netSalary).isNotNull().isEqualTo(1550);
+    // Then.
+    assertThat(profit).isNotNull().isEqualTo(32600);
   }
 
   @Test
-  public void testDecoratorWithoutRegionalTaxe() {
+  public void givenTurnover_whenNoComposingAllDecorators_thenCorrectResult() {
 
-    // Test data.
-    final double grossSalary = 30000;
+    // Given.
+    final double turnover = 100000;
 
-    // Chains all decorators.
-    // Chains all decorators.
-    final double netSalary =
-        new HealthInsuranceTaxeDecorator(new NationalTaxDecorator(new DefaultSalaryCalculator()))
-            .calculate(grossSalary);
+    // When.
+    final double profit = new RemunerationDecorator(
+        new DeductibleTaxesDecorator(new OperatingExpensesDecorator(new DefaultProfitCalculator())))
+            .calculate(turnover);
 
-    // Asserts.
-    assertThat(netSalary).isNotNull().isEqualTo(1650);
+    // Then.
+    assertThat(profit).isNotNull().isEqualTo(34600);
   }
 }
