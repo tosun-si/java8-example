@@ -73,7 +73,7 @@ public class ArgumentChecker<T> {
     final boolean isValidField = isNotNull.and(filterOnField).test(object);
 
     Optional.of(isValidField).filter(BooleanUtils::isFalse)
-        .ifPresent(e -> this.errors.add(new IllegalArgumentException(message)));
+        .ifPresent(i -> errors.add(new IllegalArgumentException(message)));
 
     return this;
   }
