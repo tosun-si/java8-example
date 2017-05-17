@@ -1,9 +1,16 @@
 package com.tosunsi.example.designpattern.java8.validator;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
+
+import org.apache.commons.lang.BooleanUtils;
+
+import com.google.common.collect.Lists;
+
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Monad that allows to compose and chain operation in order to validate many field of the given
@@ -11,28 +18,21 @@ import java.util.function.Predicate;
  *
  * Created by Mazlum on 25/08/2016.
  */
+@RequiredArgsConstructor
 public class Validator<T> {
 
-  private T t;
-  private List<Throwable> exceptions = new ArrayList<>();
-
-  /**
-   * Constructor with given object.
-   *
-   * @param t current object
-   */
-  private Validator(final T t) {
-    this.t = t;
-  }
+  @NonNull
+  private T object;
+  private List<IllegalArgumentException> errors = Lists.newArrayList();
 
   /**
    * Static factory method that allows to create new {@link Validator} instance, with given object.
    *
-   * @param t current object
+   * @param object current object
    * @return {@link Validator} with object
    */
-  public static <T> Validator<T> of(final T t) {
-    return new Validator<T>(t);
+  public static <T> Validator<T> of(final T object) {
+    return new Validator<>(object);
   }
 
   /**
@@ -45,24 +45,43 @@ public class Validator<T> {
    *        false
    * @return current {@link Validator}
    */
-  public <U> Validator<T> validate(Function<? super T, ? extends U> projection,
-      Predicate<? super U> filter, final String message) {
+  public <R> Validator<T> validate(final Function<? super T, ? extends R> projection,
+      final Predicate<? super R> filter, final String message) {
 
-    if (!filter.test(projection.apply(t))) {
-      this.exceptions.add(new IllegalStateException(message));
-    }
-
-    // final Predicate<T> function = projection.andThen(predicate::test)::apply;
+    // Checks if current field is invalid. In this case an error message is added in a list that
+    // contains all errors.
+    final Predicate<T> filterOnField = projection.andThen(filter::test)::apply;
+    final boolean isValidField = filterOnField.test(object);
+    Optional.of(isValidField).filter(BooleanUtils::isFalse)
+        .ifPresent(e -> this.errors.add(new IllegalArgumentException(message)));
 
     return this;
   }
 
   /**
-   * Gets exceptions, if it exists validation errors.
-   *
-   * @return {@link Throwable} exception if it exists validation errors
+   * Gets error messages, if it exists validation errors.<br>
+   * If there are no error, current object in validator is returned, otherwise an
+   * {@link IllegalArgumentException} is thrown with all error messages.*
    */
-  public List<Throwable> get() {
-    return exceptions;
+  public void execute() {
+
+    // If there is no error, we return current object.
+    if (errors.isEmpty()) {
+      return;
+    }
+
+    // Otherwise an exception is thrown with all error message.
+    final IllegalArgumentException exception = new IllegalArgumentException();
+    errors.forEach(exception::addSuppressed);
+    throw exception;
+  }
+
+  /**
+   * Gets all errors.
+   * 
+   * @return errors represented by a list of {@link IllegalArgumentException}
+   */
+  public List<IllegalArgumentException> get() {
+    return errors;
   }
 }

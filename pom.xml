@@ -15,14 +15,28 @@
         <junit.version>4.12</junit.version>
         <assertj.version>3.5.2</assertj.version>
         <guava.version>19.0</guava.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <lombok.version>1.16.16</lombok.version>
     </properties>
 
     <dependencies>
 
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons-lang.version}</version>
         </dependency>
 
         <!-- Tests dependencies -->
@@ -39,12 +53,6 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-
     </dependencies>
 
     <build>

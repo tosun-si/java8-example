@@ -24,7 +24,7 @@ public class ActionFilter<T> {
   }
 
   public ActionFilter<T> add(final Predicate<T> filter, final Consumer<T> consumer) {
-    map.put(filter.test(t), consumer::accept);
+    map.put(filter.test(t), consumer);
     return this;
   }
 

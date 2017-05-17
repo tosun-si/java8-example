@@ -1,17 +1,20 @@
 package com.tosunsi.example.designpattern.java8.factory;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
+
+import com.google.common.collect.Maps;
 
 import com.tosunsi.example.pojo.Vehicle;
 
 /**
+ * Revisits GOF factory design pattern.
+ * 
  * Created by Mazlum on 24/08/2016.
  */
 public final class VehicleFactory {
 
-  private Map<String, Supplier<Vehicle>> vehicles = new HashMap<>();
+  private Map<String, Supplier<Vehicle>> vehicles = Maps.newHashMap();
 
   private VehicleFactory() {}
 

@@ -22,7 +22,7 @@ public class ValidatorTest {
     // Test data.
     final Person person1 = new Person("Zlatan", "Ibra", "MR", 34);
 
-    final List<Throwable> result = Validator.of(person1)
+    final List<IllegalArgumentException> result = Validator.of(person1)
         .validate(Person::getAge, a -> a != null, "The age should not be empty")
         .validate(Person::getFirstName, f -> f != null, "First name should not be empty").get();
 
@@ -41,7 +41,7 @@ public class ValidatorTest {
     // Test data.
     final Person person1 = new Person("Zlatan", "Ibra", "MR", 10);
 
-    final List<Throwable> result = Validator.of(person1)
+    final List<IllegalArgumentException> result = Validator.of(person1)
         .validate(Person::getAge, a -> a > 10, "The age should be greater than 10")
         .validate(Person::getFirstName, f -> f != null, "First name must not be empty").get();
 
@@ -60,7 +60,7 @@ public class ValidatorTest {
     // Test data.
     final Person person1 = new Person("Zlatan", "Ibra", "MR", 10);
 
-    final List<Throwable> result = Validator.of(person1)
+    final List<IllegalArgumentException> result = Validator.of(person1)
         .validate(Person::getAge, inBetween(5, 15)::test, "The age should be greater than 10")
         .validate(Person::getFirstName, f -> f != null, "First name must not be empty").get();
 

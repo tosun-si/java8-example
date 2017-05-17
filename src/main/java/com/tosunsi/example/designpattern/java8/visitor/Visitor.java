@@ -9,26 +9,24 @@ import java.util.function.Function;
  */
 public class Visitor<R> {
 
-    private Map<Class<?>, Function<Object, R>> map = new HashMap<>();
+  private Map<Class<?>, Function<Object, R>> map = new HashMap<>();
 
-    private Visitor() {
-    }
+  private Visitor() {}
 
-    public static <R> Visitor<R> builder() {
-        return new Visitor<R>();
-    }
+  public static <R> Visitor<R> builder() {
+    return new Visitor<R>();
+  }
 
-    public <T> Visitor<R> when(final Class<T> clazz, final Function<T, R> function) {
+  public <T> Visitor<R> when(final Class<T> clazz, final Function<T, R> function) {
 
-        map.put(clazz, object -> function.apply(clazz.cast(object)));
+    map.put(clazz, object -> function.apply(clazz.cast(object)));
+    // map.put(clazz, function.compose(clazz::cast));
+    return this;
+  }
 
-        //map.put(clazz, function.compose(clazz::cast));
-        return this;
-    }
-
-    public R call(final Object object) {
-        return map.getOrDefault(object.getClass(), o -> {
-            throw new IllegalArgumentException("Unknown : " + object.getClass());
-        }).apply(object);
-    }
+  public R call(final Object object) {
+    return map.getOrDefault(object.getClass(), o -> {
+      throw new IllegalArgumentException("Unknown : " + object.getClass());
+    }).apply(object);
+  }
 }
