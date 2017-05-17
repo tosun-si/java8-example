@@ -4,11 +4,18 @@ import java.util.Optional;
 
 import com.google.common.base.MoreObjects;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 /**
  * Test class in order to create a pojo for person.
  * 
  * Created by Mazlum on 02/08/2016.
  */
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Person {
 
   // Fields.
@@ -18,8 +25,6 @@ public class Person {
   private String civility;
   private Integer age;
   private Car car;
-
-  public Person() {}
 
   public Person(String firstName, String lastName, final String civility, final Integer age) {
     this.firstName = firstName;

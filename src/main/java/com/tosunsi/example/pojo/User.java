@@ -2,11 +2,18 @@ package com.tosunsi.example.pojo;
 
 import com.google.common.base.MoreObjects;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 /**
  * Test class in order to create a pojo for user.
  * 
  * Created by Mazlum on 02/08/2016.
  */
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
   // Fields.
@@ -14,8 +21,6 @@ public class User {
   private String firstName;
   private String lastName;
   private Integer age;
-
-  public User() {}
 
   // Getters/setters.
 

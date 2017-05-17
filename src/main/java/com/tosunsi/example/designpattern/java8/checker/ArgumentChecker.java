@@ -98,18 +98,9 @@ public class ArgumentChecker<T> {
 
   public static void main(String[] args) {
 
-    // final Person person = PersonHelper.INSTANCE.getPersons().get(0);
-    val person = new Person();
-    person.setAge(14);
-    person.setFirstName("Toto");
-
-    val user = new User();
-    // user.setFirstName("Cristiano");
-    user.setLastName("Ronaldo");
-
-    val airbag = new Airbag();
-    airbag.setBrand("Test");
-
+    val person = Person.builder().age(14).firstName("Toto").build();
+    val user =  User.builder().lastName("Ronaldo").build();
+    val airbag = Airbag.builder().brand("Test").build();
     val car = new Car();
 
     ArgumentChecker.on(person)

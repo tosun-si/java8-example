@@ -54,8 +54,7 @@ public class OptionalTest {
 
     // Test data.
     final String brand = "AIRBAG PSG";
-    final Airbag airbag = new Airbag();
-    airbag.setBrand(brand);
+    final Airbag airbag = Airbag.builder().brand(brand).build();
 
     final Car car = new Car();
     car.setName("BMW");
