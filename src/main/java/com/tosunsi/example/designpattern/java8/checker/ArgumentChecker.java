@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -12,10 +13,12 @@ import org.apache.commons.lang.StringUtils;
 import com.google.common.collect.Lists;
 
 import com.tosunsi.example.pojo.Airbag;
+import com.tosunsi.example.pojo.Car;
 import com.tosunsi.example.pojo.Person;
 import com.tosunsi.example.pojo.User;
 
 import lombok.AllArgsConstructor;
+import lombok.val;
 
 /**
  * Monad that allows to compose and chain operation in order to validate many field of the given
@@ -65,10 +68,12 @@ public class ArgumentChecker<T> {
 
     // Checks if current field is invalid. In this case an error message is added in a list that
     // contains all errors.
+    final Predicate<T> isNotNull = Objects::nonNull;
     final Predicate<T> filterOnField = projection.andThen(filter::test)::apply;
-    final boolean isValidField = filterOnField.test(object);
+    final boolean isValidField = isNotNull.and(filterOnField).test(object);
+
     Optional.of(isValidField).filter(BooleanUtils::isFalse)
-        .ifPresent(i -> this.errors.add(new IllegalArgumentException(message)));
+        .ifPresent(e -> this.errors.add(new IllegalArgumentException(message)));
 
     return this;
   }
@@ -94,24 +99,33 @@ public class ArgumentChecker<T> {
   public static void main(String[] args) {
 
     // final Person person = PersonHelper.INSTANCE.getPersons().get(0);
-    final Person person = new Person();
-    person.setAge(20);
+    val person = new Person();
+    person.setAge(14);
     person.setFirstName("Toto");
 
-    final User user = new User();
+    val user = new User();
     // user.setFirstName("Cristiano");
     user.setLastName("Ronaldo");
 
-    final Airbag airbag = new Airbag();
+    val airbag = new Airbag();
     airbag.setBrand("Test");
+
+    val car = new Car();
 
     ArgumentChecker.on(person)
         .check(Person::getAge, Objects::nonNull, "Person age should not be null")
-        .check(Person::getFirstName, StringUtils::isNotEmpty,
-            "Person first name should not be empty")
+        .check(Person::getAge, inBetween(5, 15)::test, "The age should be between 5 and 15")
+        .check(Person::getFirstName, StringUtils::isNotEmpty, "Person first name should not be empty")
         .thenOn(user)
         .check(User::getLastName, Objects::nonNull, "User first name should not be null")
-        .thenOn(airbag).check(Airbag::getBrand, Objects::nonNull, "Airbag brand should not be null")
+        .thenOn(airbag)
+        .check(Airbag::getBrand, Objects::nonNull, "Airbag brand should not be null")
+        .thenOn(car)
+        .check(Function.identity(), Objects::nonNull, "Car should not be null")
         .execute();
+  }
+
+  private static IntPredicate inBetween(int start, int end) {
+    return value -> value > start && value < end;
   }
 }
