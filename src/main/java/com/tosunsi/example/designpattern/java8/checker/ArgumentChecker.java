@@ -7,6 +7,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.google.common.collect.Lists;
 
@@ -106,7 +107,7 @@ public class ArgumentChecker<T> {
 
     ArgumentChecker.on(person)
         .check(Person::getAge, Objects::nonNull, "Person age should not be null")
-        .check(Person::getFirstName, Objects::nonNull, "Person first name should not be null")
+        .check(Person::getFirstName, StringUtils::isNotEmpty, "Person first name should not be empty")
         .thenOn(user)
         .check(User::getLastName, Objects::nonNull, "User first name should not be null")
         .thenOn(airbag).check(Airbag::getBrand, Objects::nonNull, "Airbag brand should not be null")
