@@ -68,7 +68,7 @@ public class ArgumentChecker<T> {
     final Predicate<T> filterOnField = projection.andThen(filter::test)::apply;
     final boolean isValidField = filterOnField.test(object);
     Optional.of(isValidField).filter(BooleanUtils::isFalse)
-        .ifPresent(e -> this.errors.add(new IllegalArgumentException(message)));
+        .ifPresent(i -> this.errors.add(new IllegalArgumentException(message)));
 
     return this;
   }
@@ -107,7 +107,8 @@ public class ArgumentChecker<T> {
 
     ArgumentChecker.on(person)
         .check(Person::getAge, Objects::nonNull, "Person age should not be null")
-        .check(Person::getFirstName, StringUtils::isNotEmpty, "Person first name should not be empty")
+        .check(Person::getFirstName, StringUtils::isNotEmpty,
+            "Person first name should not be empty")
         .thenOn(user)
         .check(User::getLastName, Objects::nonNull, "User first name should not be null")
         .thenOn(airbag).check(Airbag::getBrand, Objects::nonNull, "Airbag brand should not be null")
